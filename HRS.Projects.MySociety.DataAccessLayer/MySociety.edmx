@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="MySocietyModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="MySocietyModelStoreContainer">
+          <EntitySet Name="Bldg" EntityType="MySocietyModel.Store.Bldg" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Flat" EntityType="MySocietyModel.Store.Flat" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Person" EntityType="MySocietyModel.Store.Person" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Relation" EntityType="MySocietyModel.Store.Relation" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Society" EntityType="MySocietyModel.Store.Society" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Wing" EntityType="MySocietyModel.Store.Wing" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Bldg_Society" Association="MySocietyModel.Store.FK_Bldg_Society">
+            <End Role="Society" EntitySet="Society" />
+            <End Role="Bldg" EntitySet="Bldg" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flat_Wing" Association="MySocietyModel.Store.FK_Flat_Wing">
+            <End Role="Wing" EntitySet="Wing" />
+            <End Role="Flat" EntitySet="Flat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Flat" Association="MySocietyModel.Store.FK_Person_Flat">
+            <End Role="Flat" EntitySet="Flat" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relation_Person" Association="MySocietyModel.Store.FK_Relation_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Relation" EntitySet="Relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relation_Person1" Association="MySocietyModel.Store.FK_Relation_Person1">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Relation" EntitySet="Relation" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wing_Bldg" Association="MySocietyModel.Store.FK_Wing_Bldg">
+            <End Role="Bldg" EntitySet="Bldg" />
+            <End Role="Wing" EntitySet="Wing" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bldg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="NoOfWings" Type="tinyint" Nullable="false" />
+          <Property Name="NoOfFloors" Type="tinyint" Nullable="false" />
+          <Property Name="Comment" Type="varchar" MaxLength="100" />
+          <Property Name="SocietyId" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Flat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="FlatNo" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="NoOfResidents" Type="tinyint" />
+          <Property Name="WingId" Type="smallint" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="FName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="MName" Type="varchar" MaxLength="50" />
+          <Property Name="Dob" Type="date" Nullable="false" />
+          <Property Name="Gender" Type="char" Nullable="false" MaxLength="1" />
+          <Property Name="IsPrimaryOwner" Type="bit" />
+          <Property Name="IsSecOwner" Type="bit" />
+          <Property Name="FlatId" Type="smallint" Nullable="false" />
+          <Property Name="EmailId" Type="varchar" MaxLength="50" />
+          <Property Name="Mobile" Type="varchar" MaxLength="10" />
+          <Property Name="Landline" Type="varchar" MaxLength="10" />
+          <Property Name="AlternateAddr" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Relation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PrimaryOwnerId" Type="smallint" />
+          <Property Name="PersonId" Type="smallint" />
+          <Property Name="RelationWithOwner" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="Society">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SocietyName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="IsRegistered" Type="bit" Nullable="false" />
+          <Property Name="RegistrationInfo" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Wing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="smallint" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="varchar" Nullable="false" MaxLength="10" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="BldgId" Type="smallint" />
+        </EntityType>
+        <Association Name="FK_Bldg_Society">
+          <End Role="Society" Type="MySocietyModel.Store.Society" Multiplicity="1" />
+          <End Role="Bldg" Type="MySocietyModel.Store.Bldg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Society">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bldg">
+              <PropertyRef Name="SocietyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flat_Wing">
+          <End Role="Wing" Type="MySocietyModel.Store.Wing" Multiplicity="0..1" />
+          <End Role="Flat" Type="MySocietyModel.Store.Flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flat">
+              <PropertyRef Name="WingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Flat">
+          <End Role="Flat" Type="MySocietyModel.Store.Flat" Multiplicity="1" />
+          <End Role="Person" Type="MySocietyModel.Store.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FlatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relation_Person">
+          <End Role="Person" Type="MySocietyModel.Store.Person" Multiplicity="0..1" />
+          <End Role="Relation" Type="MySocietyModel.Store.Relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relation">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relation_Person1">
+          <End Role="Person" Type="MySocietyModel.Store.Person" Multiplicity="0..1" />
+          <End Role="Relation" Type="MySocietyModel.Store.Relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relation">
+              <PropertyRef Name="PrimaryOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wing_Bldg">
+          <End Role="Bldg" Type="MySocietyModel.Store.Bldg" Multiplicity="0..1" />
+          <End Role="Wing" Type="MySocietyModel.Store.Wing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bldg">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wing">
+              <PropertyRef Name="BldgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MySocietyModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MySocietyEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Bldgs" EntityType="MySocietyModel.Bldg" />
+          <EntitySet Name="Flats" EntityType="MySocietyModel.Flat" />
+          <EntitySet Name="People" EntityType="MySocietyModel.Person" />
+          <EntitySet Name="Relations" EntityType="MySocietyModel.Relation" />
+          <EntitySet Name="Societies" EntityType="MySocietyModel.Society" />
+          <EntitySet Name="Wings" EntityType="MySocietyModel.Wing" />
+          <AssociationSet Name="FK_Bldg_Society" Association="MySocietyModel.FK_Bldg_Society">
+            <End Role="Society" EntitySet="Societies" />
+            <End Role="Bldg" EntitySet="Bldgs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Wing_Bldg" Association="MySocietyModel.FK_Wing_Bldg">
+            <End Role="Bldg" EntitySet="Bldgs" />
+            <End Role="Wing" EntitySet="Wings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Flat_Wing" Association="MySocietyModel.FK_Flat_Wing">
+            <End Role="Wing" EntitySet="Wings" />
+            <End Role="Flat" EntitySet="Flats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Flat" Association="MySocietyModel.FK_Person_Flat">
+            <End Role="Flat" EntitySet="Flats" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relation_Person" Association="MySocietyModel.FK_Relation_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Relation" EntitySet="Relations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Relation_Person1" Association="MySocietyModel.FK_Relation_Person1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Relation" EntitySet="Relations" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Bldg">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="NoOfWings" Type="Byte" Nullable="false" />
+          <Property Name="NoOfFloors" Type="Byte" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="SocietyId" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Society" Relationship="MySocietyModel.FK_Bldg_Society" FromRole="Bldg" ToRole="Society" />
+          <NavigationProperty Name="Wings" Relationship="MySocietyModel.FK_Wing_Bldg" FromRole="Bldg" ToRole="Wing" />
+        </EntityType>
+        <EntityType Name="Flat">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="FlatNo" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="NoOfResidents" Type="Byte" />
+          <Property Name="WingId" Type="Int16" />
+          <NavigationProperty Name="Wing" Relationship="MySocietyModel.FK_Flat_Wing" FromRole="Flat" ToRole="Wing" />
+          <NavigationProperty Name="People" Relationship="MySocietyModel.FK_Person_Flat" FromRole="Flat" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="LName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="FName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="MName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Dob" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" Unicode="false" FixedLength="true" />
+          <Property Name="IsPrimaryOwner" Type="Boolean" />
+          <Property Name="IsSecOwner" Type="Boolean" />
+          <Property Name="FlatId" Type="Int16" Nullable="false" />
+          <Property Name="EmailId" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Mobile" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Landline" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="AlternateAddr" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Flat" Relationship="MySocietyModel.FK_Person_Flat" FromRole="Person" ToRole="Flat" />
+          <NavigationProperty Name="Relations" Relationship="MySocietyModel.FK_Relation_Person" FromRole="Person" ToRole="Relation" />
+          <NavigationProperty Name="Relations1" Relationship="MySocietyModel.FK_Relation_Person1" FromRole="Person" ToRole="Relation" />
+        </EntityType>
+        <EntityType Name="Relation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="PrimaryOwnerId" Type="Int16" />
+          <Property Name="PersonId" Type="Int16" />
+          <Property Name="RelationWithOwner" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Person" Relationship="MySocietyModel.FK_Relation_Person" FromRole="Relation" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="MySocietyModel.FK_Relation_Person1" FromRole="Relation" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Society">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="SocietyName" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="IsRegistered" Type="Boolean" Nullable="false" />
+          <Property Name="RegistrationInfo" Type="String" MaxLength="200" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Bldgs" Relationship="MySocietyModel.FK_Bldg_Society" FromRole="Society" ToRole="Bldg" />
+        </EntityType>
+        <EntityType Name="Wing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int16" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="10" Unicode="false" FixedLength="false" />
+          <Property Name="Description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="BldgId" Type="Int16" />
+          <NavigationProperty Name="Bldg" Relationship="MySocietyModel.FK_Wing_Bldg" FromRole="Wing" ToRole="Bldg" />
+          <NavigationProperty Name="Flats" Relationship="MySocietyModel.FK_Flat_Wing" FromRole="Wing" ToRole="Flat" />
+        </EntityType>
+        <Association Name="FK_Bldg_Society">
+          <End Role="Society" Type="MySocietyModel.Society" Multiplicity="1" />
+          <End Role="Bldg" Type="MySocietyModel.Bldg" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Society">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Bldg">
+              <PropertyRef Name="SocietyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Wing_Bldg">
+          <End Role="Bldg" Type="MySocietyModel.Bldg" Multiplicity="0..1" />
+          <End Role="Wing" Type="MySocietyModel.Wing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bldg">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Wing">
+              <PropertyRef Name="BldgId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Flat_Wing">
+          <End Role="Wing" Type="MySocietyModel.Wing" Multiplicity="0..1" />
+          <End Role="Flat" Type="MySocietyModel.Flat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Flat">
+              <PropertyRef Name="WingId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Flat">
+          <End Role="Flat" Type="MySocietyModel.Flat" Multiplicity="1" />
+          <End Role="Person" Type="MySocietyModel.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Flat">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="FlatId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relation_Person">
+          <End Role="Person" Type="MySocietyModel.Person" Multiplicity="0..1" />
+          <End Role="Relation" Type="MySocietyModel.Relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relation">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Relation_Person1">
+          <End Role="Person" Type="MySocietyModel.Person" Multiplicity="0..1" />
+          <End Role="Relation" Type="MySocietyModel.Relation" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Relation">
+              <PropertyRef Name="PrimaryOwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MySocietyModelStoreContainer" CdmEntityContainer="MySocietyEntities">
+          <EntitySetMapping Name="Bldgs">
+            <EntityTypeMapping TypeName="MySocietyModel.Bldg">
+              <MappingFragment StoreEntitySet="Bldg">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="NoOfWings" ColumnName="NoOfWings" />
+                <ScalarProperty Name="NoOfFloors" ColumnName="NoOfFloors" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="SocietyId" ColumnName="SocietyId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Flats">
+            <EntityTypeMapping TypeName="MySocietyModel.Flat">
+              <MappingFragment StoreEntitySet="Flat">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FlatNo" ColumnName="FlatNo" />
+                <ScalarProperty Name="NoOfResidents" ColumnName="NoOfResidents" />
+                <ScalarProperty Name="WingId" ColumnName="WingId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="MySocietyModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="MName" ColumnName="MName" />
+                <ScalarProperty Name="Dob" ColumnName="Dob" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="IsPrimaryOwner" ColumnName="IsPrimaryOwner" />
+                <ScalarProperty Name="IsSecOwner" ColumnName="IsSecOwner" />
+                <ScalarProperty Name="FlatId" ColumnName="FlatId" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Landline" ColumnName="Landline" />
+                <ScalarProperty Name="AlternateAddr" ColumnName="AlternateAddr" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Relations">
+            <EntityTypeMapping TypeName="MySocietyModel.Relation">
+              <MappingFragment StoreEntitySet="Relation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PrimaryOwnerId" ColumnName="PrimaryOwnerId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="RelationWithOwner" ColumnName="RelationWithOwner" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Societies">
+            <EntityTypeMapping TypeName="MySocietyModel.Society">
+              <MappingFragment StoreEntitySet="Society">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SocietyName" ColumnName="SocietyName" />
+                <ScalarProperty Name="IsRegistered" ColumnName="IsRegistered" />
+                <ScalarProperty Name="RegistrationInfo" ColumnName="RegistrationInfo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wings">
+            <EntityTypeMapping TypeName="MySocietyModel.Wing">
+              <MappingFragment StoreEntitySet="Wing">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="BldgId" ColumnName="BldgId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
