@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{22FB0E89-DDA7-4900-A427-F4298689EE68}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HRS.Projects.MySociety.BusinessLayer</RootNamespace>
-    <AssemblyName>HRS.Projects.MySociety.BusinessLayer</AssemblyName>
+    <RootNamespace>HRS.Projects.MySociety.WCFServiceClient</RootNamespace>
+    <AssemblyName>HRS.Projects.MySociety.WCFServiceClient</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -30,11 +32,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,18 +43,47 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResidenceSvcBL.cs" />
+    <Compile Include="Service References\ResidentSvcReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HRS.Projects.MySociety.BusinessObjects\HRS.Projects.MySociety.BusinessObjects.csproj">
-      <Project>{0574f691-7dec-4f13-8763-a638c11a7bb2}</Project>
-      <Name>HRS.Projects.MySociety.BusinessObjects</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\HRS.Projects.MySociety.DataAccessLayer\HRS.Projects.MySociety.DataAccessLayer.csproj">
-      <Project>{de57debc-5ce0-4077-a322-cff8ee609d25}</Project>
-      <Name>HRS.Projects.MySociety.DataAccessLayer</Name>
-    </ProjectReference>
+    <None Include="App.config" />
+    <None Include="Service References\ResidentSvcReference\HRS.Projects.MySociety.BusinessObjects.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ResidentSvcReference\HRS.Projects.MySociety.WCFServiceClient.ResidentSvcReference.FlatBO.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ResidentSvcReference\service.wsdl" />
+    <None Include="Service References\ResidentSvcReference\service.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\ResidentSvcReference\service1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\ResidentSvcReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ResidentSvcReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ResidentSvcReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ResidentSvcReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

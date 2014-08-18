@@ -35,8 +35,33 @@ namespace HRS.Projects.MySociety.WebApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            //if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid && Authentication.IsUserAuthenticated(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                // Add the forms authentication ticket
+                // sometimes used to persist user roles
+                string userData = string.Join("|", Authentication.GetCustomUserRoles(model.UserName));
+
+                FormsAuthenticationTicket ticket = new FormsAuthenticationTicket(
+                  1,                                     // ticket version
+                  model.UserName,                        // authenticated username
+                  DateTime.Now,                          // issueDate
+                  DateTime.Now.AddMinutes(30),           // expiryDate
+                  model.RememberMe,                      // true to persist across browser sessions
+                  userData,                              // can be used to store additional user data
+                  FormsAuthentication.FormsCookiePath);  // the path for the cookie
+
+                // Encrypt the ticket using the machine key
+                string encryptedTicket = FormsAuthentication.Encrypt(ticket);
+
+                // Add the cookie to the request to save it
+                HttpCookie cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                cookie.HttpOnly = true;
+                Response.Cookies.Add(cookie);
+
+                // Your redirect logic
+                //Response.Redirect(FormsAuthentication.GetRedirectUrl(model.UserName, model.RememberMe));
+
                 return RedirectToLocal(returnUrl);
             }
 

@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.DataAccessLayer", "HRS.Projects.MySociety.DataAccessLayer\HRS.Projects.MySociety.DataAccessLayer.csproj", "{DE57DEBC-5CE0-4077-A322-CFF8EE609D25}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.WebApp", "HRS.Projects.MySociety.WebApp\HRS.Projects.MySociety.WebApp.csproj", "{6484E620-E84F-472E-BC1F-CE3A489FA81B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.BusinessLayer", "HRS.Projects.MySociety.BusinessLayer\HRS.Projects.MySociety.BusinessLayer.csproj", "{22FB0E89-DDA7-4900-A427-F4298689EE68}"
 EndProject
@@ -12,6 +15,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.WCFServices", "HRS.Projects.MySociety.WCFServices\HRS.Projects.MySociety.WCFServices.csproj", "{15B3E0D2-6217-493A-A690-158C497F5318}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.BusinessObjects", "HRS.Projects.MySociety.BusinessObjects\HRS.Projects.MySociety.BusinessObjects.csproj", "{0574F691-7DEC-4F13-8763-A638C11A7BB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRS.Projects.MySociety.WCFServiceClient", "HRS.Projects.MySociety.WCFServiceClient\HRS.Projects.MySociety.WCFServiceClient.csproj", "{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{15B3E0D2-6217-493A-A690-158C497F5318} = {15B3E0D2-6217-493A-A690-158C497F5318}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +51,10 @@ Global
 		{0574F691-7DEC-4F13-8763-A638C11A7BB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0574F691-7DEC-4F13-8763-A638C11A7BB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0574F691-7DEC-4F13-8763-A638C11A7BB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AA4A3F9-9DD0-4992-AE27-91183CBFB2E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

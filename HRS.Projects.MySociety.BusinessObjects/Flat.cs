@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRS.Projects.MySociety.BusinessObjects
 {
-    public class Flat
+    public class FlatBO
     {
         public Int16 FlatId { get; set; }
         public string FlatName { get; set; }

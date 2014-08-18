@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "CreateNewFlat";
+    Layout = "~/Views/Shared/_MySociety.cshtml";
+}
+<div>
+    
+    <h2>CreateNewFlat</h2>
+
+    @*Credate a form for capturing data for the MVC elements*@
+    <div>
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+                <legend>Registration Form</legend>
+                <ol>
+                    <li>
+                        @Html.Label("lblFlat","Flat ID")
+                        @Html.TextBox("FlatId")
+                    </li>
+                    <li>
+                        @Html.Label("lblFlatName","Flat Name")
+                        @Html.TextBox("FlatName")
+                    </li>
+                    <li>
+                        @Html.Label("noOfPersons","No. Of Persons")
+                        @Html.TextBox("txtNoOfPersons")
+                    </li>
+                </ol>
+                <input type="submit" value="Create Flat" />
+            </fieldset>
+
+        }
+    </div>
+
+</div>

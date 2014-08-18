@@ -24,5 +24,6 @@ namespace HRS.Projects.MySociety.WebApp
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
         }
+
     }
 }

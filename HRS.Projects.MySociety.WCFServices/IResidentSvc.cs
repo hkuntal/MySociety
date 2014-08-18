@@ -11,7 +11,10 @@ namespace HRS.Projects.MySociety.WCFServices
     [ServiceContract]
     public interface IResidentSvc
     {
-        Flat GetFlatDetails(int societyId);
+        [OperationContract]
+        IList<FlatBO> GetFlatDetails(int societyId);
 
+        [OperationContract]
+        string TestException();
     }
 }

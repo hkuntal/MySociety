@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_MySociety.cshtml";
+    //Layout = "~/Views/Shared/_MySociety.cshtml";
 }
 <div>
     <div>
@@ -11,7 +11,53 @@
         <div>
             Wing A - Below are the flats in Wing A
             <div>
-                
+                <div>
+                    <table>
+                        <th>
+                            FlatID
+                        </th>
+                        <th>
+                            Flat No.
+                        </th>
+                        <th>
+                            No. Of Residents
+                        </th>
+                        <th>
+                            Primary Owner
+                        </th>
+                        <th>
+                            Secondary Owner
+                        </th>
+                        @foreach (var flat in ViewBag.FlatDetails)
+                        {
+                            <tr>
+                                <td>
+                                    @flat.FlatId
+                                </td>
+                                <td>
+                                    @flat.FlatName
+                                </td>
+                                <td>
+                                    @flat.NoOfResidents
+                                </td>
+                                <td>
+                                    "Primary Owner"
+                                </td>
+                                <td>
+                                    "Secondary Owner"
+                                </td>
+                                <td>
+                                    <a href="/Residents/Edit/@flat.FlatId">Edit</a> | 
+                                    <a href="/Residents/Details/@flat.FlatId">Details</a> | 
+                                    <a href="/Residents/Delete/@flat.FlatId">Delete</a> | 
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+                <div>
+                    <a href="/TEnclave/CreateNewFlat">Create New</a>
+                </div>
             </div>
         </div>
         <div>
